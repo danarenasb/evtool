@@ -30,13 +30,13 @@ func IsEmailValid(e string) bool {
 // NormalizeGmail removes all periods and anything after the + sign on gmail addresses, as these are considered ways to create aliases for one gmail address
 func NormalizeGmail(e string) (string, error) {
 	if strings.Contains(strings.ToLower(e), "@gmail.com") {
-		return "", errors.New("Not a Gmail address")
+		splitEmail := strings.Split(e, "@")
+		emailWithoutDots := strings.ReplaceAll(splitEmail[0], ".", "")
+		if strings.Contains(emailWithoutDots, "+") {
+			normalizedEmail := strings.Split(emailWithoutDots, "+")
+			return normalizedEmail[0] + splitEmail[1], nil
+		}
+		return emailWithoutDots + splitEmail[1], nil
 	}
-	splitEmail := strings.Split(e, "@")
-	emailWithoutDots := strings.ReplaceAll(splitEmail[0], ".", "")
-	if strings.Contains(emailWithoutDots, "+") {
-		normalizedEmail := strings.Split(emailWithoutDots, "+")
-		return normalizedEmail[0] + splitEmail[1], nil
-	}
-	return emailWithoutDots + splitEmail[1], nil
+	return "", errors.New("Not a Gmail address")
 }
