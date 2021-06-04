@@ -12,13 +12,14 @@
 ### 1. Format & Valid Domain
 ```go
 func main() {
-    valid := evtool.IsEmailValid("ç$€§/az@gmail.com")
+    valid := evtool.IsEmailValid("ç$€§/az@yahoo.com")
     if !valid {
         // If not valid do something
     }
     // If valid move on and continue
 }
 ```
+output: `false`
 
 
 ### 2. Normalize Gmail aliases
@@ -29,9 +30,11 @@ func main() {
         fmt.Println(err)
         // If not a gmail address will return error
     }
+    fmt.Println(email)
     // If no error will return the email address normalized from the alias
 }
 ```
+output: `email@gmail.com`
 
 ## License
 
