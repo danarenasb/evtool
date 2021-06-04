@@ -9,10 +9,20 @@
 
 ## Usage
 
+```shell
+go get "github.com/danarenasb/evtool
+```
+
 ### 1. Format & Valid Domain
 ```go
+package main
+
+import (
+	"github.com/danarenasb/evtool"
+)
+
 func main() {
-    valid := evtool.IsEmailValid("ç$€§/az@yahoo.com")
+    valid := evtool.Validate("ç$€§/az@yahoo.com")
     if !valid {
         // If not valid do something
     }
@@ -24,6 +34,12 @@ output: `false`
 
 ### 2. Normalize Gmail aliases
 ```go
+package main
+
+import (
+	"github.com/danarenasb/evtool"
+)
+
 func main() {
     email, err := evtool.NormalizeGmail("e.m.a.i.l.+alsoemail@gmail.com")
     if err != nil {
