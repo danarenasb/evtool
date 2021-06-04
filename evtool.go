@@ -8,8 +8,7 @@ import (
 )
 
 var (
-	emailRegex  = regexp.MustCompile("^[a-zA-Z0-9.!#$%&'*+\\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$")
-	ErrNotGmail = errors.New("Not a Gmail address")
+	emailRegex = regexp.MustCompile("^[a-zA-Z0-9.!#$%&'*+\\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$")
 )
 
 // IsEmailValid takes the email as a string and checks for 3 thingsL 1)length (min 3 max 254), 2) that it macthes REGEX "^[a-zA-Z0-9.!#$%&'*+\\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$") and 3) uses net package to check DNX MX records for the domain.
@@ -31,7 +30,7 @@ func IsEmailValid(e string) bool {
 // NormalizeGmail removes all periods and anything after the + sign on gmail addresses, as these are considered ways to create aliases for one gmail address
 func NormalizeGmail(e string) (string, error) {
 	if strings.Contains(strings.ToLower(e), "@gmail.com") {
-		return "", ErrNotGmail
+		return "", errors.New("Not a Gmail address")
 	}
 	splitEmail := strings.Split(e, "@")
 	emailWithoutDots := strings.ReplaceAll(splitEmail[0], ".", "")
