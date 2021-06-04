@@ -12,7 +12,7 @@ var (
 )
 
 // IsEmailValid takes the email as a string and checks for 3 thingsL 1)length (min 3 max 254), 2) that it macthes REGEX "^[a-zA-Z0-9.!#$%&'*+\\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$") and 3) uses net package to check DNX MX records for the domain.
-func IsEmailValid(e string) bool {
+func Validate(e string) bool {
 	if len(e) < 3 && len(e) > 254 {
 		return false
 	}
@@ -34,9 +34,9 @@ func NormalizeGmail(e string) (string, error) {
 		emailWithoutDots := strings.ReplaceAll(splitEmail[0], ".", "")
 		if strings.Contains(emailWithoutDots, "+") {
 			normalizedEmail := strings.Split(emailWithoutDots, "+")
-			return normalizedEmail[0] + splitEmail[1], nil
+			return normalizedEmail[0] + "@" + splitEmail[1], nil
 		}
-		return emailWithoutDots + splitEmail[1], nil
+		return emailWithoutDots + "@" + splitEmail[1], nil
 	}
 	return "", errors.New("Not a Gmail address")
 }
