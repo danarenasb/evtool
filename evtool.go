@@ -33,10 +33,11 @@ func NormalizeGmail(e string) (string, error) {
 	if strings.Contains(strings.ToLower(e), "@gmail.com") {
 		return "", ErrNotGmail
 	}
-	emailWithoutDots := strings.ReplaceAll(e, ".", "")
+	splitEmail := strings.Split(e, "@")
+	emailWithoutDots := strings.ReplaceAll(splitEmail[0], ".", "")
 	if strings.Contains(emailWithoutDots, "+") {
 		normalizedEmail := strings.Split(emailWithoutDots, "+")
-		return normalizedEmail[0], nil
+		return normalizedEmail[0] + splitEmail[1], nil
 	}
-	return emailWithoutDots, nil
+	return emailWithoutDots + splitEmail[1], nil
 }
