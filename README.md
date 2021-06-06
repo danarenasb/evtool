@@ -5,7 +5,7 @@
  - Valid domain
  - Normalize Gmail aliases into real address. (Removes periods and anything starting from + sign forward)
 
-[![GoDoc](https://godoc.org/github.com/danarenasb.evtool?status.png)](https://godoc.org/github.com/danarenasb.evtool)
+[![GoDoc](https://godoc.org/github.com/danarenasb.evtool?status.png)](https://godoc.org/github.com/danarenasb/evtool)
 
 ## Usage
 
